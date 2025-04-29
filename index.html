@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业资源计划(ERP)复习资料</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --primary-dark: #2980b9;
+            --secondary-color: #2c3e50;
+            --secondary-dark: #1a2530;
+            --light-color: #f9f9f9;
+            --border-color: #eee;
+            --text-color: #333;
+            --box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+            background-color: var(--light-color);
+            overflow-x: hidden;
+        }
+        
+        h1 {
+            text-align: center;
+            color: var(--secondary-color);
+            margin: 15px 0 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color);
+            font-size: 1.8rem;
+        }
+        
+        h2 {
+            color: var(--primary-dark);
+            margin-top: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 1.5rem;
+        }
+        
+        .question {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.2s ease;
+        }
+        
+        .question:hover {
+            transform: translateY(-2px);
+        }
+        
+        .question-title {
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .question-title span {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .answer {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ddd;
+            line-height: 1.7;
+        }
+        
+        .answer p {
+            margin-bottom: 8px;
+        }
+        
+        .answer strong {
+            color: var(--primary-dark);
+        }
+        
+        .show-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+            white-space: nowrap;
+        }
+        
+        .show-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .chapter {
+            margin-bottom: 40px;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        /* 控制按钮样式 */
+        .control-panel {
+            display: none; /* 在移动端隐藏顶部控制面板 */
+        }
+        
+        @media (min-width: 769px) {
+            .control-panel {
+                position: sticky;
+                top: 0;
+                background-color: rgba(255, 255, 255, 0.95);
+                padding: 15px;
+                margin-bottom: 20px;
+                border-radius: 8px;
+                box-shadow: var(--box-shadow);
+                z-index: 100;
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+        }
+        
+        .control-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .control-btn:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .nav-panel {
+            position: sticky;
+            top: 70px;
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
+            z-index: 90;
+        }
+        
+        .nav-panel h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: var(--secondary-color);
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        
+        .nav-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .nav-link {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 5px;
+            font-size: 14px;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .nav-link:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: var(--box-shadow);
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            opacity: 0.8;
+        }
+        
+        .back-to-top:hover {
+            opacity: 1;
+            transform: translateY(-5px);
+        }
+        
+        .back-to-top svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        /* 移动端优化 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 15px;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+            
+            .control-panel {
+                padding: 10px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            
+            .control-btn {
+                width: 100%;
+                padding: 12px;
+            }
+            
+            .question {
+                padding: 12px;
+            }
+            
+            .question-title {
+                flex-direction: row; /* 保持水平布局 */
+                align-items: center; /* 垂直居中 */
+                flex-wrap: wrap; /* 允许在需要时换行 */
+                gap: 8px; /* 减小间距 */
+            }
+            
+            .question-title span {
+                flex: 1; /* 使问题文本占据可用空间 */
+                min-width: 0; /* 允许文本在需要时收缩 */
+                margin-bottom: 0; /* 移除底部边距 */
+                font-size: 14px; /* 稍微减小字体大小 */
+            }
+            
+            .show-btn {
+                flex: 0 0 auto; /* 按钮不伸缩 */
+                width: auto; /* 自适应宽度 */
+                min-width: 60px; /* 确保最小点击区域 */
+                padding: 6px 8px; /* 调整内边距 */
+                font-size: 11px; /* 稍微减小字体 */
+            }
+            
+            .nav-panel {
+                display: none; /* 隐藏原始导航面板 */
+            }
+            
+            .hamburger-btn {
+                display: flex; /* 确保在移动端显示并使用flex布局 */
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+        
+        /* 深色模式 */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-color: #3498db;
+                --primary-dark: #2980b9;
+                --secondary-color: #2c3e50;
+                --secondary-dark: #1a2530;
+                --light-color: #121212;
+                --border-color: #333;
+                --text-color: #e0e0e0;
+                --box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            }
+            
+            body {
+                background-color: var(--light-color);
+                color: var(--text-color);
+            }
+            
+            .question {
+                background-color: #1e1e1e;
+            }
+            
+            .chapter {
+                background-color: rgba(30, 30, 30, 0.5);
+            }
+            
+            .control-panel, .nav-panel {
+                background-color: rgba(30, 30, 30, 0.95);
+            }
+            
+            .answer {
+                border-top-color: #444;
+            }
+            
+            .side-nav {
+                background-color: #1e1e1e;
+                color: var(--text-color);
+            }
+            
+            .side-nav-header {
+                border-bottom-color: #333;
+            }
+            
+            .side-nav-header h3, .side-nav-title {
+                color: #ddd;
+            }
+            
+            .side-nav-close {
+                color: #aaa;
+            }
+        }
+        
+        /* 侧边导航栏 */
+        .side-nav {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 280px;
+            height: 100%;
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+            padding-top: 60px;
+        }
+        
+        .side-nav.open {
+            left: 0;
+        }
+        
+        .side-nav-header {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .side-nav-header h3 {
+            margin: 0;
+            color: var(--secondary-color);
+        }
+        
+        .side-nav-content {
+            padding: 15px;
+        }
+        
+        .side-nav-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        .side-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .side-nav-link {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .side-nav-link:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .side-nav-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #777;
+            background: none;
+            border: none;
+        }
+        
+        /* 汉堡菜单按钮 - 始终显示在移动端 */
+        .hamburger-btn {
+            display: block; /* 始终显示 */
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 桌面版隐藏汉堡按钮 */
+        @media (min-width: 769px) {
+            .hamburger-btn {
+                display: none;
+            }
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        .overlay.open {
+            display: block;
+        }
+        
+        /* 模态弹窗样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            position: relative;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #777;
+            transition: color 0.3s;
+            font-weight: bold;
+        }
+        
+        .close-btn:hover {
+            color: #333;
+        }
+        
+        .modal-title {
+            margin-top: 0;
+            color: var(--secondary-color);
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+        
+        /* 随机测试样式 */
+        .test-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .chapter-btn, .all-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .chapter-btn:hover, .all-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .all-btn {
+            background-color: var(--secondary-color);
+        }
+        
+        .all-btn:hover {
+            background-color: var(--secondary-dark);
+        }
+        
+        .random-question {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 5px solid var(--primary-color);
+        }
+        
+        .random-question h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .random-question-text {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .random-answer {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ddd;
+            display: none;
+        }
+        
+        .show-random-answer {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .show-random-answer:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .generate-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        
+        .generate-btn:hover {
+            background-color: #219653;
+            transform: translateY(-2px);
+        }
+        
+        .side-nav-section {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .side-nav-control {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .side-nav-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .side-nav-btn:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .side-nav-btn.primary {
+            background-color: var(--primary-color);
+        }
+        
+        .side-nav-btn.primary:hover {
+            background-color: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <h1>企业资源计划(ERP)复习资料</h1>
+    
+    <!-- 控制面板 (桌面版) -->
+    <div class="control-panel">
+        <button class="control-btn" id="show-all">显示所有答案</button>
+        <button class="control-btn" id="hide-all">隐藏所有答案</button>
+        <button class="control-btn" id="random-test">随机测试</button>
+    </div>
+    
+    <!-- 侧边导航栏 -->
+    <div class="side-nav" id="sideNav">
+        <button class="side-nav-close" id="closeSideNav">&times;</button>
+        <div class="side-nav-header">
+            <h3>ERP 复习资料</h3>
+        </div>
+        <div class="side-nav-content">
+            <!-- 控制按钮区域 -->
+            <div class="side-nav-section">
+                <div class="side-nav-title">操作菜单</div>
+                <div class="side-nav-control">
+                    <button class="side-nav-btn" id="side-show-all">显示所有答案</button>
+                    <button class="side-nav-btn" id="side-hide-all">隐藏所有答案</button>
+                    <button class="side-nav-btn primary" id="side-random-test">随机测试</button>
+                </div>
+            </div>
+            
+            <!-- 章节导航区域 -->
+            <div class="side-nav-section">
+                <div class="side-nav-title">章节导航</div>
+                <div class="side-nav-links" id="sideNavLinks">
+                    <!-- 由 JavaScript 动态填充 -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 遮罩层 -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- 汉堡菜单按钮 -->
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="菜单">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+    
+    <div id="content">
+        <!-- 章节一 -->
+        <div class="chapter">
+            <h2>第一章</h2>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>1. 试着讲述目前你对ERP的理解</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>ERP是以信息技术为核心，采用现代企业先进管理思想，整合企业内外部资源的管理系统，为企业提供决策、计划、控制与经营业绩评估的全方位系统化的管理平台</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>2. ERP经营理论有哪些</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>供应链管理</p>
+                    <p>精益生产</p>
+                    <p>业务流程重组</p>
+                    <p>约束理论</p>
+                    <p>全面质量管理</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>3. 企业运作模式有哪些</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>按订单生产</p>
+                    <p>按库存生产</p>
+                    <p>混合模式</p>
+                    <p>项目型生产</p>
+                    <p>连续流程生产</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 章节二 -->
+        <div class="chapter">
+            <h2>第二章</h2>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>1. ERP的定义是什么？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>ERP是以信息技术为核心，采用现代企业先进管理思想，整合企业内外部资源的管理系统，为企业提供决策、计划、控制与经营业绩评估的全方位系统化的管理平台</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>2. 什么是订货点法？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>订货点法是一种传统库存管理方法，当库存量降至预定阈值时触发补货，适用于独立需求物料的静态管理，但无法动态适应生产变化，后被MRP取代。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>3. 简单介绍ERP的内涵</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>集成管理系统，整合财务、生产、供应链等业务流程，实现数据共享与资源优化，提升效率和决策水平。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>4. 简要介绍物料需求计划的基本原理</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>物料需求计划基于主生产计划、根据产品结构或产品物料清单、制造工艺流程、产品交货期以及库存状态等信息，由计算机编制出各个时段各个物料的生产以及采购计划。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>6. 闭环MRP的主要优点是什么</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>闭环MRP通过"计划—执行—反馈"机制形成闭环控制，实时调整生产计划与资源分配，解决能力不足问题,如设备或人力调整，提升生产灵活性与效率。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>9. 简要介绍ERP的三大法宝</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>① <strong>相关需求</strong>，基于产品结构的物料联动需求；② <strong>时间分割</strong>，按时段精确计划物料需求；③ <strong>能力平衡</strong>，动态调整资源确保计划可行性</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 章节三 -->
+        <div class="chapter">
+            <h2>第三章</h2>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>1. 简述物料编码的概念。什么是物料编码的唯一性？物料编码体系的建立遵循什么设计原则？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p><strong>物料编码</strong>是以简短的文字、符号、数字、号码来代表物料、品名、规格或类别及其有关事项的一种代码体系。</p>
+                    <p><strong>唯一性</strong>:每种物料仅对应一个编码。</p>
+                    <p><strong>设计原则包括：</strong></p>
+                    <p>1. 信息分类编码体现科学化、标准化、规范化、合理化。</p>
+                    <p>2. 参照国家标准中有关分类标准体系。</p>
+                    <p>3. 参照企业原有的编码体系，尽量考虑企业的习惯。这样便于企业生产活动的延续性，也有利于数据的整理工作。</p>
+                    <p>4. 保证编码的唯一性、可扩展性和方便性。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>3. 简述计划展望期的基本概念。</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>计划展望期是指计划的时间跨度，其目的是控制产品生产的全过程，提高计划的预见性，它必须大于产品的累计提前期</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>4. 简要阐述预测的基本步骤,并绘制出预测基本流程图。</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p><strong>预测步骤：</strong></p>
+                    <p>(1)确定预测目标。</p>
+                    <p>(2)收集分析资料。</p>
+                    <p>(3)选择预测方案。</p>
+                    <p>(4)进行预测。</p>
+                    <p>(5)分析预测结果。</p>
+                    <p>(6)修正和确认预测结果。</p>
+                    <p>(7)输出预测结果。</p>
+                    <p><strong>流程图</strong>：</p>
+                    <img src="第三章第四题.png" alt="预测基本流程图" style="max-width:100%; margin:15px auto; border:1px solid #ddd;">
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>5. 简述预测的两大类方法及其优缺点。</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p><strong>如时间序列法</strong>：基于历史数据，客观准确，但无法适应突发变化。</p>
+                    <p><strong>德尔菲法</strong>：依赖专家经验，灵活应对新趋势，但主观性强。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>8. 简述分销资源管理主要管理哪些内容。</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>渠道网络规划、库存分配、订单处理、物流协调、销售数据分析，经销商绩效评估与支持。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>9. 影响销售预测的因素有哪些?</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>历史销售趋势、市场需求波动、经济环境、企业营销策略、产品生命周期阶段。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 章节四 -->
+        <div class="chapter">
+            <h2>第四章</h2>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>2. 生产规划在整个计划体系中起什么作用？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>(1)把经营规划中用货币表达的目标转变为用产品系列的产量来表达，制定出每个月生产哪些产品、销售多少。</p>
+                    <p>(2)制定一个均衡的月产率，以便均衡地利用资源，保持稳定生产。</p>
+                    <p>(3)控制拖欠量或控制库存量</p>
+                    <p>(4)作为编制主生产计划的依据。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>3. 生产规划的基本内容是什么</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>① <strong>品种</strong>，按需求特征或工艺相似性划分产品系列并制定产量目标；</p>
+                    <p>② <strong>时间</strong>，以月或季度为单位的计划展望期，支持滚动调整；</p>
+                    <p>③ <strong>人员</strong>，按技能或产品分组动态调整人力</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>4. 生产规划大纲编制方法有哪些？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>1. 滚动计划法</p>
+                    <p>2. 平均法</p>
+                    <p>3. 线性规划法</p>
+                    <p>4. 资源清单法</p>
+                    <p>5. 能力需求计划系数法</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>8. 简述如何编制资源需求计划</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>建立资源清单。</p>
+                    <p>计算资源需求。</p>
+                    <p>比较可用资源和资源需求。</p>
+                    <p>协调可用资源和资源需求之间的差距。</p>
+                    <p>撰写生产规划大纲。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 章节五 -->
+        <div class="chapter">
+            <h2>第五章</h2>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>1. 什么是MPS？MPS在计划系统中处于什么地位？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>主生产计划（MPS）是对企业生产计划大纲的细化，确定每一个具体产品在每一个具体时段的生产计划。</p>
+                    <p>地位：主生产计划（MPS）在计划系统中处于 <strong>承上启下的核心枢纽地位</strong>，是连接战略层生产规划与战术层物料需求计划（MRP）的关键桥梁。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>2. 请解释以下概念：时段、时区和时界(计划时界与需求时界)。如何理解它们之间的关系？需求时区、计划时区、预测时区从时间上讲，哪一个在前面？请结合实例说明</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>时段是计划的最小时间单位（如天/周），时区分为需求时区（客户订单驱动）、计划时区（订单与预测结合）及预测时区（仅预测），时间顺序为预测时区→计划时区→需求时区。例如某产品总装提前期6时段，预测时区为时段1-8，计划时区为9-15，需求时区为16-21。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>3. 请解释以下概念：毛需求、预计可用库存量、计划产出量、计划投入量、可供销售量、可用库存量。它们如何计算？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p><strong>毛需求</strong>：需求时区取订单量，计划时区取订单与预测最大值，预测时区取预测量。</p>
+                    <p><strong>预计可用库存量</strong>：前一时段库存+计划接收量-毛需求+计划产出量。</p>
+                    <p><strong>计划产出量</strong>：按批量策略补足净需求（净需求=毛需求-可用库存+安全库存）。</p>
+                    <p><strong>计划投入量</strong>：根据提前期倒推计划产出量的投入时间。</p>
+                    <p><strong>可供销售量</strong>：某时段计划产出量-该时段及后续时段的订单总量。</p>
+                    <p><strong>可用库存量</strong>：当前库存-已分配量。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 章节六 -->
+        <div class="chapter">
+            <h2>第六章</h2>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>2. MRP与订货点方法的主要区别是什么？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>订货点方法是一种静态的库存控制工具，而 MRP 是一种动态的、基于生产计划的全流程物料管理系统。两者的核心差异在于 <strong>需求关联性、时间规划能力</strong> 及 <strong>系统整合复杂度</strong>。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>5. 批量策略在MRP中如何使用？试着举三种不同批量策略影响。</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>批量策略在MRP中通过<strong>固定批量与动态调整结合</strong>，优化库存管理、避免剩余累积，并需<strong>分层调整物料</strong>以减少连锁影响。</p>
+                    <p>1. <strong>固定批量法</strong>：强制按固定数量订货，库存剩余累积。</p>
+                    <p>2. <strong>直接批量法</strong>：完全按需订货，零库存但订单频繁。</p>
+                    <p>3. <strong>周期订货法</strong>：按周期汇总需求订货，平衡库存与成本。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>8. 净需求与计划产出之间的关系是什么？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>净需求由安全库存减去可用库存得出，计划产出量根据批量策略向上取整补足净需求，确保生产可行性。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 章节七 -->
+        <div class="chapter">
+            <h2>第七章</h2>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>1. 工作中心是什么？有什么作用？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>工作中心是企业直接生产的加工单元，是一组机器设备，人等生产资源的总称。</p>
+                    <p>作用：</p>
+                    <p>1. 核算产能，平衡任务负荷与生产能力；</p>
+                    <p>2. 定义工序基础，每道工序需关联对应工作中心；</p>
+                    <p>3. 作为任务分配和生产排程的核心单元；</p>
+                    <p>4. 按工时定额×时间费率计算加工成本；</p>
+                    <p>5. 完工信息、成本核算的直接数据来源。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>3. 粗能力需求计划的对象主要指哪些？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>关键工作中心，特别供应商，自然资源，专门技能，资金，仓库，运输，不可外协的工作。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>7. 简述粗能力需求和能力需求计划的区别</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>粗能力需求计划聚焦主生产阶段的关键资源与长期平衡，能力需求计划覆盖全部工作中心并基于物料需求计划动态调整短期能力缺口。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>9. 无限能力需求计划法就是不考虑能力的约束吗？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>无限能力需求计划法假设能力无上限直接排产，但实际仍需通过后续调整解决超负荷问题，并非完全忽略约束。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 章节八 -->
+        <div class="chapter">
+            <h2>第八章</h2>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>1. 采购管理的主要业务有什么</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>采购计划制定、采购订单管理、收退货管理、请购管理以及采购结算和结清。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>4. 采购管理模式包括哪些？有何特点？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>1.JIT采购模式，按需采购，减少库存，强调与供应商的紧密协作</p>
+                    <p>2.MRP采购模式，需求的相关行，需求的稳定性，计划的精细性和计算的复杂性</p>
+                    <p>3.供应链采购模式，供应链企业之间实现信息连通、信息共享，处于一种友好合作的环境。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>5. 订货批量有哪些方法？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>经济订货批量法</p>
+                    <p>按需订货批量法</p>
+                    <p>固定批量法</p>
+                    <p>批量增量法</p>
+                    <p>固定周期法</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 章节九 -->
+        <div class="chapter">
+            <h2>第九章</h2>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>1. 仓库管理有哪些业务？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>（1）物料存储管理</p>
+                    <p>（2）物料收发（入库/出库）处理</p>
+                    <p>（3）库存计划与控制</p>
+                    <p>（4）库存成本核算</p>
+                    <p>（5）与生产、采购、销售等部门业务协同</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>2. 请要说明库存的分类</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>1.按库存物资存在状态可以分为原材料库存、成品库存、部件库存、备件库存、在制品库存等。</p>
+                    <p>2.按库存用途可以分为经常性库存、安全库存、季节性库存、战略性库存、在途库存等。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>3. 你觉得库存对一个企业来说重要吗？为什么？如何考虑零库存管理？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>（1）<strong>重要</strong>：库存是维持生产连续性、稳定销售、平衡物流与资金的关键，同时可应对市场需求波动及供应链不确定风险。</p>
+            
+                    <p>（3）<strong>零库存管理</strong>：需结合精准需求预测、供应链协同、JIT生产、柔性制造及信息化系统支持，并评估风险。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>6. 请描述一下ABC库存控制法</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>（1）<strong>定义</strong>：基于20/80原则，将库存按资金占比分为A（高价值）、B（中等）、C（低价值）三类，实施分级管理。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>7. 请绘制库存管理子系统的业务处理流程</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>库存管理子系统与ERP其他模块之间的关系图如下：</p>
+                    <img src="第九章第七题.png" alt="库存管理与ERP其他模块之间的关系" style="max-width:100%; margin:15px auto; border:1px solid #ddd;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- 章节十 -->
+        <div class="chapter">
+            <h2>第十章</h2>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>1. 什么是车间管理？车间管理的主要业务是什么？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>（1）<strong>定义</strong>：车间管理是依据企业计划，对车间生产活动进行组织、调度与控制，确保按时、按质、按量完成制造任务</p>
+                    <p>（2）<strong>主要业务</strong>：</p>
+                    <p>- 生产任务下达与跟踪</p>
+                    <p>- 作业排序与调度</p>
+                    <p>- 生产进度与质量控制</p>
+                    <p>- 能力投入产出控制</p>
+                    <p>- 在制品管理</p>
+                    <p>- 加工信息登记</p>
+                    <p>- 统计分析</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>4. 生产任务下达时包括哪些依据，各有什么作用？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>（1）<strong>主生产计划</strong>：确定生产品种、数量及时间，确保任务与整体计划一致。</p>
+                    <p>（2）<strong>工艺路线</strong>：明确产品加工步骤及资源需求，指导工序顺序与资源分配。</p>
+                    <p>（3）<strong>工作中心数据</strong>：评估设备、人员及产能，确保生产能力匹配任务需求。</p>
+                    <p>（4）<strong>物料清单</strong>：明确生产所需物料种类、数量，生成投料单以控制领料。</p>
+                    <p>（5）<strong>库存可用量</strong>：核实物料库存是否满足生产需求，避免因缺料导致中断。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>5. 派工单如何生成？加工单和派工单有什么区别？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>派工单根据工作中心任务队列与优先级生成，分配具体工序任务；加工单明确物料加工要求，派工单细化到工作中心执行细节。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>7. 简单描述约翰法的基本步骤</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>1.列出零件组的工序矩阵。</p>
+                    <p>2.在工序矩阵中选出加工时间最短的工序。</p>
+                    <p>3.将已经排序的工件从工序矩阵中消去。</p>
+                    <p>4.继续按照以上两步骤进行排序，直至所有工件排序结束。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>8. 描述关键工序法的基本步骤</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>（1）汇总各零件工序加工量，将加工量最大的工序定义为关键工序。</p>
+                    <p>（2）比较零件首尾工序，首＜尾分第一组，首＝尾分第二组，首＞尾分第三组。</p>
+                    <p>（3）各组分别对组内零件进行排序</p>
+                    <p>（4）整体排序：第一组最前，第二组中间，第三组最后。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 章节十二 -->
+        <div class="chapter">
+            <h2>第十二章</h2>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>1. 产品成本由哪些部分构成？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>直接成本，间接成本</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>2. ERP中设置了哪些成本类型？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>标准成本、模拟成本和实际成本</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>7. 简述ABC成本法的核算原理</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>1.作业消耗资源，产品消耗作业。</p>
+                    <p>2.产品通过作业引发间接费用，按成本动因分配费用。</p>
+                    <p>3.引入成本动因，按作业分摊制造费用，反映真实资源消耗。</p>
+                    <p>4.识别成本根源，在作业层面控制成本。</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>10. 成本差异分析包括哪几部分内容？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>1.直接材料成本差异</p>
+                    <p>2.直接人工成本差异</p>
+                    <p>3.变动制造费用差异</p>
+                    <p>4.固定制造费用差异</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-title">
+                    <span>13. ERP成本管理任务是什么？</span>
+                    <button class="show-btn">显示答案</button>
+                </div>
+                <div class="answer">
+                    <p>准确核算成本、实施动态预测、分析成本差异、优化资源配置</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 添加返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop" title="返回顶部">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
+    
+    <!-- 随机测试模态窗口 -->
+    <div id="testModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 class="modal-title">随机测试</h2>
+            <p>选择一个章节或全部内容进行随机测试：</p>
+            
+            <div class="test-options">
+                <!-- 将由JavaScript动态添加 -->
+            </div>
+            
+            <div id="randomQuestionContainer"></div>
+        </div>
+    </div>
+    
+    <script>
+        // 获取所有显示/隐藏答案按钮
+        const showButtons = document.querySelectorAll('.show-btn');
+        
+        // 为每个按钮添加点击事件
+        showButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // 找到当前问题的答案区域
+                const answer = this.parentElement.nextElementSibling;
+                
+                // 切换答案的显示状态
+                if (answer.style.display === 'block') {
+                    answer.style.display = 'none';
+                    this.textContent = '显示答案';
+                } else {
+                    answer.style.display = 'block';
+                    this.textContent = '隐藏答案';
+                }
+            });
+        });
+        
+        // 添加目录导航功能
+        window.addEventListener('DOMContentLoaded', function() {
+            // 创建目录容器
+            const nav = document.createElement('div');
+            nav.className = 'nav-panel';
+            
+            // 添加目录标题
+            const navTitle = document.createElement('h3');
+            navTitle.textContent = '目录导航';
+            nav.appendChild(navTitle);
+            
+            // 创建目录列表
+            const navList = document.createElement('div');
+            navList.className = 'nav-list';
+            
+            // 获取所有章节
+            const chapters = document.querySelectorAll('.chapter h2');
+            const sideNavLinks = document.getElementById('sideNavLinks');
+            
+            // 为每个章节创建导航链接
+            chapters.forEach((chapter, index) => {
+                // 为主导航创建链接
+                const link = document.createElement('a');
+                link.textContent = chapter.textContent;
+                link.href = '#chapter-' + (index + 1);
+                link.className = 'nav-link';
+                
+                // 为侧边导航创建链接
+                const sideLink = document.createElement('a');
+                sideLink.textContent = chapter.textContent;
+                sideLink.href = '#chapter-' + (index + 1);
+                sideLink.className = 'side-nav-link';
+                
+                // 添加点击事件
+                const clickHandler = function(e) {
+                    e.preventDefault();
+                    chapter.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // 如果是侧边栏链接，关闭侧边栏
+                    if (this.className === 'side-nav-link') {
+                        document.getElementById('sideNav').classList.remove('open');
+                        document.getElementById('overlay').classList.remove('open');
+                    }
+                };
+                
+                link.addEventListener('click', clickHandler);
+                sideLink.addEventListener('click', clickHandler);
+                
+                navList.appendChild(link);
+                sideNavLinks.appendChild(sideLink);
+                
+                // 为章节添加id，便于导航
+                chapter.id = 'chapter-' + (index + 1);
+            });
+            
+            nav.appendChild(navList);
+            
+            // 将导航插入到控制面板之后
+            const controlPanel = document.querySelector('.control-panel');
+            controlPanel.parentNode.insertBefore(nav, controlPanel.nextSibling);
+        });
+        
+        // 侧边导航栏控制
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const closeSideNav = document.getElementById('closeSideNav');
+        const sideNav = document.getElementById('sideNav');
+        const overlay = document.getElementById('overlay');
+        
+        // 打开侧边导航
+        hamburgerBtn.addEventListener('click', function() {
+            sideNav.classList.add('open');
+            overlay.classList.add('open');
+        });
+        
+        // 关闭侧边导航
+        closeSideNav.addEventListener('click', function() {
+            sideNav.classList.remove('open');
+            overlay.classList.remove('open');
+        });
+        
+        // 点击遮罩层关闭侧边导航
+        overlay.addEventListener('click', function() {
+            sideNav.classList.remove('open');
+            overlay.classList.remove('open');
+        });
+        
+        // 返回顶部按钮功能
+        const backToTopButton = document.getElementById('backToTop');
+        
+        // 滚动显示/隐藏返回顶部按钮
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        // 点击返回顶部
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 随机测试功能
+        const modal = document.getElementById('testModal');
+        const randomTestBtn = document.getElementById('random-test');
+        const closeBtn = document.querySelector('.close-btn');
+        const testOptions = document.querySelector('.test-options');
+        const questionContainer = document.getElementById('randomQuestionContainer');
+        
+        // 打开模态窗口
+        randomTestBtn.addEventListener('click', function() {
+            modal.style.display = 'block';
+            
+            // 清空之前的选项
+            testOptions.innerHTML = '';
+            
+            // 添加章节按钮
+            const chapters = document.querySelectorAll('.chapter h2');
+            chapters.forEach((chapter, index) => {
+                const chapterBtn = document.createElement('button');
+                chapterBtn.className = 'chapter-btn';
+                chapterBtn.textContent = chapter.textContent;
+                chapterBtn.dataset.index = index;
+                chapterBtn.addEventListener('click', function() {
+                    generateRandomQuestion(index);
+                });
+                testOptions.appendChild(chapterBtn);
+            });
+            
+            // 添加"全部"按钮
+            const allBtn = document.createElement('button');
+            allBtn.className = 'all-btn';
+            allBtn.textContent = '全部章节';
+            allBtn.addEventListener('click', function() {
+                generateRandomQuestion(-1); // -1 表示所有章节
+            });
+            testOptions.appendChild(allBtn);
+        });
+        
+        // 关闭模态窗口
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        // 点击模态窗口外部关闭
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // 生成随机题目
+        function generateRandomQuestion(chapterIndex) {
+            // 准备获取题目
+            let questions = [];
+            const chapters = document.querySelectorAll('.chapter');
+            
+            if (chapterIndex === -1) {
+                // 从所有章节获取题目
+                document.querySelectorAll('.question').forEach(question => {
+                    const title = question.querySelector('.question-title span').textContent;
+                    const answer = question.querySelector('.answer').innerHTML;
+                    const chapterTitle = question.closest('.chapter').querySelector('h2').textContent;
+                    questions.push({ title, answer, chapterTitle });
+                });
+            } else {
+                // 从特定章节获取题目
+                const chapter = chapters[chapterIndex];
+                const chapterTitle = chapter.querySelector('h2').textContent;
+                chapter.querySelectorAll('.question').forEach(question => {
+                    const title = question.querySelector('.question-title span').textContent;
+                    const answer = question.querySelector('.answer').innerHTML;
+                    questions.push({ title, answer, chapterTitle });
+                });
+            }
+            
+            // 随机选择一个题目
+            if (questions.length > 0) {
+                const randomIndex = Math.floor(Math.random() * questions.length);
+                const randomQuestion = questions[randomIndex];
+                
+                // 显示随机题目
+                questionContainer.innerHTML = `
+                    <div class="random-question">
+                        <h3>来自 ${randomQuestion.chapterTitle} 的随机题目</h3>
+                        <div class="random-question-text">${randomQuestion.title}</div>
+                        <button class="show-random-answer">显示答案</button>
+                        <div class="random-answer">${randomQuestion.answer}</div>
+                        <button class="generate-btn">生成新题目</button>
+                    </div>
+                `;
+                
+                // 显示/隐藏答案功能
+                const showAnswerBtn = questionContainer.querySelector('.show-random-answer');
+                const answerDiv = questionContainer.querySelector('.random-answer');
+                
+                showAnswerBtn.addEventListener('click', function() {
+                    if (answerDiv.style.display === 'block') {
+                        answerDiv.style.display = 'none';
+                        showAnswerBtn.textContent = '显示答案';
+                    } else {
+                        answerDiv.style.display = 'block';
+                        showAnswerBtn.textContent = '隐藏答案';
+                    }
+                });
+                
+                // 生成新题目按钮
+                const generateNewBtn = questionContainer.querySelector('.generate-btn');
+                generateNewBtn.addEventListener('click', function() {
+                    generateRandomQuestion(chapterIndex);
+                });
+            }
+        }
+        
+        // 添加侧边栏控制按钮功能
+        document.getElementById('side-show-all').addEventListener('click', function() {
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => {
+                answer.style.display = 'block';
+                answer.previousElementSibling.querySelector('.show-btn').textContent = '隐藏答案';
+            });
+            // 关闭侧边栏
+            document.getElementById('sideNav').classList.remove('open');
+            document.getElementById('overlay').classList.remove('open');
+        });
+        
+        document.getElementById('side-hide-all').addEventListener('click', function() {
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => {
+                answer.style.display = 'none';
+                answer.previousElementSibling.querySelector('.show-btn').textContent = '显示答案';
+            });
+            // 关闭侧边栏
+            document.getElementById('sideNav').classList.remove('open');
+            document.getElementById('overlay').classList.remove('open');
+        });
+        
+        document.getElementById('side-random-test').addEventListener('click', function() {
+            // 关闭侧边栏
+            document.getElementById('sideNav').classList.remove('open');
+            document.getElementById('overlay').classList.remove('open');
+            
+            // 打开随机测试模态窗口
+            const modal = document.getElementById('testModal');
+            modal.style.display = 'block';
+            
+            // 清空之前的选项
+            const testOptions = document.querySelector('.test-options');
+            testOptions.innerHTML = '';
+            
+            // 添加章节按钮
+            const chapters = document.querySelectorAll('.chapter h2');
+            chapters.forEach((chapter, index) => {
+                const chapterBtn = document.createElement('button');
+                chapterBtn.className = 'chapter-btn';
+                chapterBtn.textContent = chapter.textContent;
+                chapterBtn.dataset.index = index;
+                chapterBtn.addEventListener('click', function() {
+                    generateRandomQuestion(index);
+                });
+                testOptions.appendChild(chapterBtn);
+            });
+            
+            // 添加"全部"按钮
+            const allBtn = document.createElement('button');
+            allBtn.className = 'all-btn';
+            allBtn.textContent = '全部章节';
+            allBtn.addEventListener('click', function() {
+                generateRandomQuestion(-1); // -1 表示所有章节
+            });
+            testOptions.appendChild(allBtn);
+        });
+        
+        // 显示所有答案按钮功能 (桌面版)
+        document.getElementById('show-all').addEventListener('click', function() {
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => {
+                answer.style.display = 'block';
+                answer.previousElementSibling.querySelector('.show-btn').textContent = '隐藏答案';
+            });
+        });
+        
+        // 隐藏所有答案按钮功能 (桌面版)
+        document.getElementById('hide-all').addEventListener('click', function() {
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach(answer => {
+                answer.style.display = 'none';
+                answer.previousElementSibling.querySelector('.show-btn').textContent = '显示答案';
+            });
+        });
+        
+        // 随机测试按钮功能 (桌面版)
+        document.getElementById('random-test').addEventListener('click', function() {
+            const modal = document.getElementById('testModal');
+            modal.style.display = 'block';
+            
+            // 清空之前的选项
+            const testOptions = document.querySelector('.test-options');
+            testOptions.innerHTML = '';
+            
+            // 添加章节按钮
+            const chapters = document.querySelectorAll('.chapter h2');
+            chapters.forEach((chapter, index) => {
+                const chapterBtn = document.createElement('button');
+                chapterBtn.className = 'chapter-btn';
+                chapterBtn.textContent = chapter.textContent;
+                chapterBtn.dataset.index = index;
+                chapterBtn.addEventListener('click', function() {
+                    generateRandomQuestion(index);
+                });
+                testOptions.appendChild(chapterBtn);
+            });
+            
+            // 添加"全部"按钮
+            const allBtn = document.createElement('button');
+            allBtn.className = 'all-btn';
+            allBtn.textContent = '全部章节';
+            allBtn.addEventListener('click', function() {
+                generateRandomQuestion(-1); // -1 表示所有章节
+            });
+            testOptions.appendChild(allBtn);
+        });
+    </script>
+</body>
+</html> 
